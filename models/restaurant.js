@@ -14,7 +14,7 @@ var restaurantsSchema = new mongoose.Schema({
         required: true
     },
     rating: {
-        type: Int,
+        type: String,
         required: true
     },
     description: {
@@ -23,7 +23,6 @@ var restaurantsSchema = new mongoose.Schema({
     },
     postalcode: {
         type: String,
-        required: true
     }
 })
 
