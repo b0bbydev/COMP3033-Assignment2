@@ -58,11 +58,62 @@ router.post('/', (req, res, next) => {
   }
 });
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('restaurants', {
-    title: 'Assignment 2c'
+// PUT /restaurants/:_id
+router.put('/:_id', (req, res, next) => {
+  // Validate required fields
+  if (!req.body.name) {
+    res.json({
+      'ValidationError': 'The restaurant name is a required field'
+    }).status(400);
+  } else if (!req.body.rating) {
+    res.json({
+      'ValidationError': 'The restaurant rating is a required field'
+    }).status(400);
+  } else if (!req.body.description) {
+    res.json({
+      'ValidationError': 'The restaurant description is a required field'
+    }).status(400);
+  } else {
+    Restaurant.findOneAndUpdate({
+        _id: req.params._id
+      }, // filter query
+      {
+        name: req.body.name,
+        rating: req.body.rating,
+        description: req.body.description,
+        postalcode: req.body.postalcode
+      }, // update document
+      (err, updatedRestaurant) => {
+        if (err) {
+          console.log(err);
+          res.json({
+            'ErrorMessage': 'Server threw an exception'
+          }).status(500);
+        } else {
+          res.json(updatedRestaurant).status(200);
+        }
+      } // update callback.
+    );
+  }
+});
+
+// DELETE /restaurants/:_id
+router.delete('/:_id', (req, res, next) => {
+  Restaurant.remove({
+    _id: req.params._id
+  }, (err) => {
+    if (err) {
+      console.log(err);
+      res.json({
+        'ErrorMessage': 'Server threw an exception'
+      }).status(500);
+    } else {
+      res.json({
+        'success': 'true'
+      }).status(200);
+    }
   });
 });
+
 
 module.exports = router;
