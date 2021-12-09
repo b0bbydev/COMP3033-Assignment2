@@ -9,15 +9,22 @@ const mongoose = require('mongoose')
 
 // create schema
 var restaurantsSchema = new mongoose.Schema({
-    restaurantName: {
+    name: {
         type: String,
         required: true
     },
-    restaurantRating: {
+    rating: {
         type: Int,
         required: true
     },
-    restaurantDescription: String
+    description: {
+        type: String,
+        required: true
+    },
+    postalcode: {
+        type: String,
+        required: true
+    }
 })
 
 module.exports = mongoose.model('restaurants', restaurantsSchema)
