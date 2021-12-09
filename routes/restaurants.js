@@ -12,8 +12,29 @@ const Restaurant = require('../models/restaurant');
 
 /* GET /restaurants */
 router.get('/', function (req, res, next) {
+
+  /* implement some filtering. */
+  // create query object.
+  let query = {}
+
+  // validate wether params are included in req and add them to query object.
+  if(req.query.name)
+  {
+    query.name = req.query.name
+  }
+  if(req.query.rating)
+  {
+    query.rating = req.query.rating
+  }
+  if(req.query.postalcode)
+  {
+    query.postalcode = req.query.postalcode
+  }
+  
+  /* now implement the above in the .find() */
+
   // get contacts.
-  Restaurant.find((err, restaurants) => {
+  Restaurant.find(query, (err, restaurants) => {
     if (err) {
       console.log(err);
     } else {
