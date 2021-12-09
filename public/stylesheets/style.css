@@ -1,8 +1,17 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+/*
+ * Name: Bobby Jonkman
+ * Date: Dec.8.2021
+ * Purpose: Assignment 2
+ */
+
+/* Make nav fit to top */
+#nav {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  margin-bottom: 5em;
 }
 
-a {
-  color: #00B7FF;
+body {
+  background-color: #e2ded0 !important;
 }
