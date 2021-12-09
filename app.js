@@ -10,6 +10,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// config file.
+const config = require('./config/config')
+
+// include mongoose.
+const mongoose = require('mongoose');
+
 // create routers here.
 var indexRouter = require('./routes/index');
 
@@ -32,6 +38,15 @@ app.use('/', indexRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+// connect to collection.
+mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true })
+.then((message) => {
+  console.log('Connected successfully!');
+})
+.catch((error) => {
+  console.log(`Error while connecting! ${reason}`);
+})
 
 // error handler
 app.use(function(err, req, res, next) {
