@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: "Restaurant Rater API"
+  version: "1.0.0"
+paths:
+  /restaurants:
+    get:
+      description: "Returns a list of restaurants"
+      parameters:
+        - name: "name"
+          description: "The name of the restaurant"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "rating"
+          description: "The rating of the restaurant from 1-5"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+        - name: "description"
+          description: "A description of the restaurant"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "postalcode"
+          description: "The postal code of where the restaurant is located"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "Unfiltered list of restaurants"
+    post:
+      description: "Adds a restaurant"
+      parameters:
+        - name: "name"
+          description: "The name of the restaurant"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "rating"
+          description: "The rating of the restaurant from 1-5"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+        - name: "description"
+          description: "A description of the restaurant"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "postalcode"
+          description: "The postal code of where the restaurant is located"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "Restaurant added succesfully"
+        "400":
+          description: "Missing a required parameter"
+        "500":
+          description: "Server Error"
+    put:
+      description: "Updates an existing restaurant"
+      parameters:
+        - name: "_id"
+          description: "The _id of the restaurant"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "name"
+          description: "The name of the restaurant"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "rating"
+          description: "The rating of the restaurant from 1-5"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+        - name: "description"
+          description: "A description of the restaurant"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "postalcode"
+          description: "The postal code of where the restaurant is located"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "Restaurant updated succesfully"
+        "400":
+          description: "Missing a required parameter"
+        "500":
+          description: "Server Error"
+    delete:
+      description: "Updates an existing restaurant"
+      parameters:
+        - name: "_id"
+          description: "The _id of the restaurant"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "Restaurant deleted succesfully"
+        "500":
+          description: "Server Error"

@@ -17,6 +17,11 @@ const config = require('./config/config')
 const passport = require('passport')
 const BasicStrategy = require('passport-http').BasicStrategy
 
+// all these are for documenting the API.
+const swaggerUI = require('swagger-ui-express')
+const swaggerJSDoc = require('swagger-jsdoc')
+const YAML = require('yamljs')
+
 // include mongoose.
 const mongoose = require('mongoose');
 
@@ -25,6 +30,10 @@ var indexRouter = require('./routes/index');
 var restaurantsRouter = require('./routes/restaurants');
 
 var app = express();
+
+// load documentation from the YAML file.
+const swaggerDocument = YAML.load('./documentation/api-specification.yaml')
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
