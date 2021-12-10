@@ -13,6 +13,10 @@ var logger = require('morgan');
 // config file.
 const config = require('./config/config')
 
+// passport - for securing the API.
+const passport = require('passport')
+const BasicStrategy = require('passport-http').BasicStrategy
+
 // include mongoose.
 const mongoose = require('mongoose');
 
@@ -32,9 +36,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// initialize passport.
+app.use(passport.initialize())
+
+// implement basic authentication strategy.
+passport.use(new BasicStrategy((username, password, done) => {
+  // add logic to authenticate against provided username & password.
+  // credentials come from the request as a header in format: username:password
+  // hard coded username & pass.
+  if(username == 'test' && password == 'tester')
+  {
+    console.log(`User ${username} authenticated!`)
+    return done(null, username)
+  } else {
+    console.log(`Authentication failed for user ${username}`)
+    return done(null, false)
+  }// end of if-else.
+}));
+
 // use routers here.
 app.use('/', indexRouter);
-app.use('/restaurants', restaurantsRouter);
+// lock this endpoint behind authentication by including passport.authenticate()
+app.use('/restaurants', passport.authenticate('basic', { session: false }), restaurantsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

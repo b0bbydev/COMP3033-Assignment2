@@ -10,8 +10,17 @@ var router = express.Router();
 // contact model.
 const Restaurant = require('../models/restaurant');
 
+// specify a default number of records to display at once.
+const pageSize = 10
+
 /* GET /restaurants */
 router.get('/', function (req, res, next) {
+
+  /* pagination. */
+  let page = req.query.page || 1
+
+  // calculate how many records to skip. ex: 1 to 10 = skip 0, 11 to 20 = skip 10 etc..
+  let skipSize = pageSize * (page - 1)
 
   /* implement some filtering. */
   // create query object.
@@ -42,6 +51,11 @@ router.get('/', function (req, res, next) {
       console.log(req.query)
     } // end of if-else.
   })
+  // implement pagination.
+  // sort by name, jump to nth position, then take x number of records.
+  .sort({name: 1})
+  .skip(skipSize)
+  .limit(pageSize)
 });
 
 /* POST /restaurants */
